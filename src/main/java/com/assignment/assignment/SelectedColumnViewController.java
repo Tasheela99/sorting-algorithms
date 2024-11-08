@@ -10,8 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.util.Arrays;
-
 public class SelectedColumnViewController {
 
     @FXML
@@ -36,7 +34,7 @@ public class SelectedColumnViewController {
     private TextField heapSortTimeTextField;
 
     @FXML
-    private TableView<String> columnTableView;
+    private TableView<Double> columnTableView; // TableView for displaying column data
 
     @FXML
     private BarChart<String, Number> sortingTimeBarChart;
@@ -47,9 +45,10 @@ public class SelectedColumnViewController {
     private double shellSortTime;
     private double heapSortTime;
 
-    public void setColumnData(String columnHeader, ObservableList<String> columnData) {
-        TableColumn<String, String> column = new TableColumn<>(columnHeader);
-        column.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue()));
+    public void setColumnData(String columnHeader, ObservableList<Double> columnData) {
+        // Create a TableColumn for Double values
+        TableColumn<Double, Double> column = new TableColumn<>(columnHeader);
+        column.setCellValueFactory(cellData -> new javafx.beans.property.SimpleObjectProperty<>(cellData.getValue()));
         column.setPrefWidth(columnTableView.getPrefWidth() - 20);
 
         columnTableView.getColumns().clear();
@@ -82,7 +81,7 @@ public class SelectedColumnViewController {
     }
 
     private double performMergeSort() {
-        String[] dataArray = getDataArrayFromTable();
+        double[] dataArray = getDataArrayFromTable();
         long duration = measureSortingTime(() -> mergeSort(dataArray, 0, dataArray.length - 1));
         double timeInMs = duration / 1_000_000.0;
         mergeSortTimeTextField.setText(String.format("%.2f ms", timeInMs));
@@ -91,7 +90,7 @@ public class SelectedColumnViewController {
     }
 
     private double performQuickSort() {
-        String[] dataArray = getDataArrayFromTable();
+        double[] dataArray = getDataArrayFromTable();
         long duration = measureSortingTime(() -> quickSort(dataArray, 0, dataArray.length - 1));
         double timeInMs = duration / 1_000_000.0;
         quickSortTimeTextField.setText(String.format("%.2f ms", timeInMs));
@@ -100,7 +99,7 @@ public class SelectedColumnViewController {
     }
 
     private double performInsertionSort() {
-        String[] dataArray = getDataArrayFromTable();
+        double[] dataArray = getDataArrayFromTable();
         long duration = measureSortingTime(() -> insertionSort(dataArray));
         double timeInMs = duration / 1_000_000.0;
         insertionSortTimeTextField.setText(String.format("%.2f ms", timeInMs));
@@ -109,7 +108,7 @@ public class SelectedColumnViewController {
     }
 
     private double performShellSort() {
-        String[] dataArray = getDataArrayFromTable();
+        double[] dataArray = getDataArrayFromTable();
         long duration = measureSortingTime(() -> shellSort(dataArray));
         double timeInMs = duration / 1_000_000.0;
         shellSortTimeTextField.setText(String.format("%.2f ms", timeInMs));
@@ -118,7 +117,7 @@ public class SelectedColumnViewController {
     }
 
     private double performHeapSort() {
-        String[] dataArray = getDataArrayFromTable();
+        double[] dataArray = getDataArrayFromTable();
         long duration = measureSortingTime(() -> heapSort(dataArray));
         double timeInMs = duration / 1_000_000.0;
         heapSortTimeTextField.setText(String.format("%.2f ms", timeInMs));
@@ -140,13 +139,20 @@ public class SelectedColumnViewController {
         sortingTimeBarChart.getData().add(series);
     }
 
-    private String[] getDataArrayFromTable() {
-        ObservableList<String> data = columnTableView.getItems();
-        return data.toArray(new String[0]);
+    private double[] getDataArrayFromTable() {
+        ObservableList<Double> data = columnTableView.getItems();
+        double[] dataArray = new double[data.size()];
+        for (int i = 0; i < data.size(); i++) {
+            dataArray[i] = data.get(i);
+        }
+        return dataArray;
     }
 
-    private void updateTable(String[] sortedData) {
-        ObservableList<String> updatedData = FXCollections.observableArrayList(sortedData);
+    private void updateTable(double[] sortedData) {
+        ObservableList<Double> updatedData = FXCollections.observableArrayList();
+        for (double value : sortedData) {
+            updatedData.add(value);
+        }
         columnTableView.setItems(updatedData);
     }
 
@@ -156,7 +162,8 @@ public class SelectedColumnViewController {
         return System.nanoTime() - startTime;
     }
 
-    private void mergeSort(String[] array, int left, int right) {
+    // Sorting algorithms
+    private void mergeSort(double[] array, int left, int right) {
         if (left < right) {
             int middle = (left + right) / 2;
             mergeSort(array, left, middle);
@@ -165,19 +172,19 @@ public class SelectedColumnViewController {
         }
     }
 
-    private void merge(String[] array, int left, int middle, int right) {
+    private void merge(double[] array, int left, int middle, int right) {
         int n1 = middle - left + 1;
         int n2 = right - middle;
 
-        String[] leftArray = new String[n1];
-        String[] rightArray = new String[n2];
+        double[] leftArray = new double[n1];
+        double[] rightArray = new double[n2];
 
         System.arraycopy(array, left, leftArray, 0, n1);
         System.arraycopy(array, middle + 1, rightArray, 0, n2);
 
         int i = 0, j = 0, k = left;
         while (i < n1 && j < n2) {
-            if (leftArray[i].compareTo(rightArray[j]) <= 0) {
+            if (leftArray[i] <= rightArray[j]) {
                 array[k] = leftArray[i];
                 i++;
             } else {
@@ -198,7 +205,7 @@ public class SelectedColumnViewController {
         }
     }
 
-    private void quickSort(String[] array, int low, int high) {
+    private void quickSort(double[] array, int low, int high) {
         if (low < high) {
             int pi = partition(array, low, high);
             quickSort(array, low, pi - 1);
@@ -206,89 +213,84 @@ public class SelectedColumnViewController {
         }
     }
 
-    private int partition(String[] array, int low, int high) {
-        String pivot = array[high];
+    private int partition(double[] array, int low, int high) {
+        double pivot = array[high];
         int i = (low - 1);
 
         for (int j = low; j < high; j++) {
-            if (array[j].compareTo(pivot) <= 0) {
+            if (array[j] <= pivot) {
                 i++;
-                String temp = array[i];
+                double temp = array[i];
                 array[i] = array[j];
                 array[j] = temp;
             }
         }
 
-        String temp = array[i + 1];
+        double temp = array[i + 1];
         array[i + 1] = array[high];
         array[high] = temp;
 
         return i + 1;
     }
 
-    private void insertionSort(String[] array) {
-        int n = array.length;
-        for (int i = 1; i < n; i++) {
-            String key = array[i];
+    private void insertionSort(double[] array) {
+        for (int i = 1; i < array.length; i++) {
+            double key = array[i];
             int j = i - 1;
-
-            while (j >= 0 && array[j].compareTo(key) > 0) {
+            while (j >= 0 && array[j] > key) {
                 array[j + 1] = array[j];
-                j--;
+                j = j - 1;
             }
             array[j + 1] = key;
         }
     }
 
-    private void shellSort(String[] array) {
+    private void shellSort(double[] array) {
         int n = array.length;
-
         for (int gap = n / 2; gap > 0; gap /= 2) {
             for (int i = gap; i < n; i++) {
-                String temp = array[i];
-                int j;
-                for (j = i; j >= gap && array[j - gap].compareTo(temp) > 0; j -= gap) {
+                double temp = array[i];
+                int j = i;
+                while (j >= gap && array[j - gap] > temp) {
                     array[j] = array[j - gap];
+                    j -= gap;
                 }
                 array[j] = temp;
             }
         }
     }
 
-    private void heapSort(String[] array) {
+    private void heapSort(double[] array) {
         int n = array.length;
-
-        // Build heap (rearrange array)
-        for (int i = n / 2 - 1; i >= 0; i--)
+        for (int i = n / 2 - 1; i >= 0; i--) {
             heapify(array, n, i);
+        }
 
-        // One by one extract an element from heap
         for (int i = n - 1; i > 0; i--) {
-            // Move current root to end
-            String temp = array[0];
+            double temp = array[0];
             array[0] = array[i];
             array[i] = temp;
 
-            // call max heapify on the reduced heap
             heapify(array, i, 0);
         }
     }
 
-    private void heapify(String[] array, int n, int i) {
+    private void heapify(double[] array, int n, int i) {
         int largest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
-        if (left < n && array[left].compareTo(array[largest]) > 0)
+        if (left < n && array[left] > array[largest]) {
             largest = left;
-
-        if (right < n && array[right].compareTo(array[largest]) > 0)
+        }
+        if (right < n && array[right] > array[largest]) {
             largest = right;
+        }
 
         if (largest != i) {
-            String swap = array[i];
+            double temp = array[i];
             array[i] = array[largest];
-            array[largest] = swap;
+            array[largest] = temp;
 
             heapify(array, n, largest);
         }

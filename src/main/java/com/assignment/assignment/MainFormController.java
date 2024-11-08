@@ -1,5 +1,6 @@
 package com.assignment.assignment;
 
+import com.assignment.assignment.SelectedColumnViewController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +34,7 @@ public class MainFormController {
     private Label dateTimeLabel;
 
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
+    private ObservableList<ObservableList<Double>> numericData = FXCollections.observableArrayList(); // For numeric columns
 
     @FXML
     public void initialize() {
@@ -58,6 +60,7 @@ public class MainFormController {
             tableView.getColumns().clear();
             data.clear();
             numericColumnComboBox.getItems().clear();
+            numericData.clear(); // Reset numericData
 
             while ((line = br.readLine()) != null) {
                 String[] fields = line.split(",");
@@ -67,11 +70,21 @@ public class MainFormController {
                 } else {
                     ObservableList<String> row = FXCollections.observableArrayList(Arrays.asList(fields));
                     data.add(row);
+
+                    // Convert numeric columns to Double and store them separately
+                    ObservableList<Double> numericRow = FXCollections.observableArrayList();
+                    for (int i = 0; i < fields.length; i++) {
+                        try {
+                            numericRow.add(Double.parseDouble(fields[i])); // Try parsing each value as a Double
+                        } catch (NumberFormatException e) {
+                            numericRow.add(Double.NaN); // Add NaN if not a valid number
+                        }
+                    }
+                    numericData.add(numericRow);
                 }
             }
 
             tableView.setItems(data);
-
             identifyNumericColumns(); // Identify numeric columns after loading data
 
         } catch (IOException e) {
@@ -114,14 +127,20 @@ public class MainFormController {
             int columnIndex = Integer.parseInt(columnIndexField.getText());
 
             if (columnIndex >= 0 && columnIndex < tableView.getColumns().size()) {
-                ObservableList<String> columnData = FXCollections.observableArrayList();
+                ObservableList<Double> columnData = FXCollections.observableArrayList(); // Changed to hold Doubles
                 String columnHeader = tableView.getColumns().get(columnIndex).getText();
 
                 for (ObservableList<String> row : data) {
-                    columnData.add(row.get(columnIndex));
+                    try {
+                        // Try parsing each cell as a Double
+                        columnData.add(Double.parseDouble(row.get(columnIndex)));
+                    } catch (NumberFormatException e) {
+                        // If parsing fails, add NaN for non-numeric data
+                        columnData.add(Double.NaN);
+                    }
                 }
 
-                openColumnWindow(columnHeader, columnData);
+                openColumnWindow(columnHeader, columnData); // Pass the Double list
             } else {
                 showAlert("Invalid column index. Please enter a number between 0 and " +
                         (tableView.getColumns().size() - 1));
@@ -141,25 +160,29 @@ public class MainFormController {
         }
     }
 
-    // Show selected column data in a separate window
     private void showSelectedColumnData(int columnIndex) {
-        ObservableList<String> columnData = FXCollections.observableArrayList();
+        ObservableList<Double> columnData = FXCollections.observableArrayList();
         String columnHeader = tableView.getColumns().get(columnIndex).getText();
 
         for (ObservableList<String> row : data) {
-            columnData.add(row.get(columnIndex));
+            try {
+                // Try parsing each cell as a Double
+                columnData.add(Double.parseDouble(row.get(columnIndex)));
+            } catch (NumberFormatException e) {
+                columnData.add(Double.NaN); // Add NaN for non-numeric values
+            }
         }
-        openColumnWindow(columnHeader, columnData);
+        openColumnWindow(columnHeader, columnData);  // Pass the Double list
     }
 
-    // Open a new window to display the column data
-    private void openColumnWindow(String columnHeader, ObservableList<String> columnData) {
+
+    private void openColumnWindow(String columnHeader, ObservableList<Double> columnData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/assignment/assignment/SelectedColumnViews.fxml"));
             Parent root = loader.load();
 
             SelectedColumnViewController controller = loader.getController();
-            controller.setColumnData(columnHeader, columnData);
+            controller.setColumnData(columnHeader, columnData);  // Pass Double data
 
             Stage stage = new Stage();
             stage.setTitle("Analysis Screen - " + columnHeader);
@@ -170,6 +193,8 @@ public class MainFormController {
             showAlert("Error loading column view window");
         }
     }
+
+
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
