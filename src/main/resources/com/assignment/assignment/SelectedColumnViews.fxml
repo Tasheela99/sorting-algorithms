@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="954.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.SelectedColumnViewController">
+<AnchorPane prefHeight="954.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.controller.SelectedColumnViewController">
     <TableView fx:id="columnTableView" layoutX="10.0" layoutY="10.0" prefHeight="924.0" prefWidth="368.0" />
     <VBox layoutX="401.0" layoutY="12.0" prefHeight="924.0" prefWidth="880.0" spacing="10.0">
         <children>

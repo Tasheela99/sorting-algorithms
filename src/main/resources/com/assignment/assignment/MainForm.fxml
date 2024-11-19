@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="912.0" prefWidth="1298.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.MainFormController">
+<AnchorPane prefHeight="912.0" prefWidth="1298.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.controller.MainFormController">
     <!-- Button to upload the CSV file -->
     <Button layoutX="20.0" layoutY="26.0" onAction="#addCSVFileOnAction" prefHeight="70.0" prefWidth="368.0" text="Upload CSV" />
 

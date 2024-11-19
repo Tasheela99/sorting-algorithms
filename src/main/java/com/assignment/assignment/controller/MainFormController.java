@@ -1,4 +1,4 @@
-package com.assignment.assignment;
+package com.assignment.assignment.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,8 +16,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class MainFormController {
@@ -163,10 +161,9 @@ public class MainFormController {
 
         for (ObservableList<String> row : data) {
             try {
-                // Try parsing each cell as a Double
                 columnData.add(Double.parseDouble(row.get(columnIndex)));
             } catch (NumberFormatException e) {
-                columnData.add(Double.NaN); // Add NaN for non-numeric values
+                columnData.add(Double.NaN);
             }
         }
         openColumnWindow(columnHeader, columnData);  // Pass the Double list
@@ -179,7 +176,7 @@ public class MainFormController {
             Parent root = loader.load();
 
             SelectedColumnViewController controller = loader.getController();
-            controller.setColumnData(columnHeader, columnData);  // Pass Double data
+            controller.setColumnData(columnHeader, columnData);
 
             Stage stage = new Stage();
             stage.setTitle("Analysis Screen - " + columnHeader);
