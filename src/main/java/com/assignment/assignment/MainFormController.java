@@ -1,6 +1,5 @@
 package com.assignment.assignment;
 
-import com.assignment.assignment.SelectedColumnViewController;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +39,6 @@ public class MainFormController {
     public void initialize() {
         // Initialize the button click handler
         showColumnButton.setOnAction(this::showSelectedColumn);
-        updateDateTime(); // Set the current date and time on startup
     }
 
     public void addCSVFileOnAction(ActionEvent actionEvent) {
@@ -135,7 +133,6 @@ public class MainFormController {
                         // Try parsing each cell as a Double
                         columnData.add(Double.parseDouble(row.get(columnIndex)));
                     } catch (NumberFormatException e) {
-                        // If parsing fails, add NaN for non-numeric data
                         columnData.add(Double.NaN);
                     }
                 }
@@ -202,11 +199,5 @@ public class MainFormController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    private void updateDateTime() {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDateTime now = LocalDateTime.now();
-        dateTimeLabel.setText(dtf.format(now));
     }
 }

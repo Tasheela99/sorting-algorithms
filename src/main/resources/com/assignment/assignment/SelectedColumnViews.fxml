@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.SelectedColumnViewController">
-    <TableView fx:id="columnTableView" layoutX="10.0" layoutY="10.0" prefHeight="573.0" prefWidth="280.0" />
-    <VBox layoutX="310.0" layoutY="12.0" prefHeight="573.0" prefWidth="472.0" spacing="10.0">
+<AnchorPane prefHeight="954.0" prefWidth="1296.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.SelectedColumnViewController">
+    <TableView fx:id="columnTableView" layoutX="10.0" layoutY="10.0" prefHeight="924.0" prefWidth="368.0" />
+    <VBox layoutX="401.0" layoutY="12.0" prefHeight="924.0" prefWidth="880.0" spacing="10.0">
         <children>
             <HBox spacing="10.0">
                 <Button fx:id="mergeSortButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="144.0" text="Merge Sort" />
@@ -40,7 +40,7 @@
             </HBox>
 
             <!-- Adding BarChart to display sorting times -->
-            <BarChart fx:id="sortingTimeBarChart" prefHeight="282.0" prefWidth="480.0">
+            <BarChart fx:id="sortingTimeBarChart" prefHeight="612.0" prefWidth="971.0">
                 <xAxis>
                     <CategoryAxis label="Sorting Algorithm" />
                 </xAxis>

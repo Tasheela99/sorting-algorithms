@@ -8,23 +8,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.MainFormController">
+<AnchorPane prefHeight="912.0" prefWidth="1298.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.MainFormController">
     <!-- Button to upload the CSV file -->
-    <Button layoutX="20.0" layoutY="14.0" onAction="#addCSVFileOnAction" prefHeight="47.0" prefWidth="249.0" text="Upload CSV" />
+    <Button layoutX="20.0" layoutY="26.0" onAction="#addCSVFileOnAction" prefHeight="70.0" prefWidth="368.0" text="Upload CSV" />
 
     <!-- TableView to display the CSV content -->
-    <TableView fx:id="tableView" layoutX="19.0" layoutY="71.0" prefHeight="437.0" prefWidth="765.0">
+    <TableView fx:id="tableView" layoutX="20.0" layoutY="117.0" prefHeight="701.0" prefWidth="1256.0">
         <!-- The columns will be dynamically created in the controller -->
     </TableView>
-    <Button fx:id="showColumnButton" layoutX="419.0" layoutY="527.0" prefHeight="47.0" prefWidth="103.0" text="Show Column" />
+    <Button fx:id="showColumnButton" layoutX="401.0" layoutY="835.0" prefHeight="47.0" prefWidth="103.0" text="Show Column" />
 
     <!-- ComboBox for numeric column selection -->
-    <ComboBox fx:id="numericColumnComboBox" layoutX="20.0" layoutY="525.0" onAction="#handleNumericColumnSelection" prefHeight="47.0" prefWidth="200.0" promptText="Select numeric column" />
-
-    <!-- Label to display the current date and time -->
-    <Label fx:id="dateTimeLabel" layoutX="708.0" layoutY="29.0"/>
+    <ComboBox fx:id="numericColumnComboBox" layoutX="21.0" layoutY="835.0" onAction="#handleNumericColumnSelection" prefHeight="47.0" prefWidth="200.0" promptText="Select numeric column" />
 
     <!-- TextField and Button for manual column selection -->
-    <TextField fx:id="columnIndexField" layoutX="269.0" layoutY="527.0" prefHeight="47.0" prefWidth="150.0" promptText="Enter column index" />
-   <Text layoutX="233.0" layoutY="554.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
+    <TextField fx:id="columnIndexField" layoutX="251.0" layoutY="835.0" prefHeight="47.0" prefWidth="150.0" promptText="Enter column index" />
+   <Text layoutX="228.0" layoutY="863.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
 </AnchorPane>
