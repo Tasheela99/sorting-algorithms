@@ -169,7 +169,6 @@ public class MainFormController {
         openColumnWindow(columnHeader, columnData);  // Pass the Double list
     }
 
-
     private void openColumnWindow(String columnHeader, ObservableList<Double> columnData) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/assignment/assignment/SelectedColumnViews.fxml"));
@@ -187,8 +186,6 @@ public class MainFormController {
             showAlert("Error loading column view window");
         }
     }
-
-
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

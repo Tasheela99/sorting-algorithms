@@ -4,23 +4,53 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="912.0" prefWidth="1298.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.controller.MainFormController">
-    <!-- Button to upload the CSV file -->
-    <Button layoutX="20.0" layoutY="26.0" onAction="#addCSVFileOnAction" prefHeight="70.0" prefWidth="368.0" text="Upload CSV" />
+<VBox xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.assignment.assignment.controller.MainFormController"
+      spacing="10">
 
-    <!-- TableView to display the CSV content -->
-    <TableView fx:id="tableView" layoutX="20.0" layoutY="117.0" prefHeight="701.0" prefWidth="1256.0">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <!-- Top section with upload button -->
+    <Button onAction="#addCSVFileOnAction"
+            text="Upload CSV"
+            maxWidth="400.0"
+            minHeight="50.0"/>
+
+    <!-- TableView that grows and shrinks with the window -->
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <!-- The columns will be dynamically created in the controller -->
     </TableView>
-    <Button fx:id="showColumnButton" layoutX="401.0" layoutY="835.0" prefHeight="47.0" prefWidth="103.0" text="Show Column" />
 
-    <!-- ComboBox for numeric column selection -->
-    <ComboBox fx:id="numericColumnComboBox" layoutX="21.0" layoutY="835.0" onAction="#handleNumericColumnSelection" prefHeight="47.0" prefWidth="200.0" promptText="Select numeric column" />
+    <!-- Bottom controls section -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <ComboBox fx:id="numericColumnComboBox"
+                  onAction="#handleNumericColumnSelection"
+                  promptText="Select numeric column"
+                  minWidth="200.0"
+                  maxWidth="300.0"
+                  minHeight="40.0"/>
 
-    <!-- TextField and Button for manual column selection -->
-    <TextField fx:id="columnIndexField" layoutX="251.0" layoutY="835.0" prefHeight="47.0" prefWidth="150.0" promptText="Enter column index" />
-   <Text layoutX="228.0" layoutY="863.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR" />
-</AnchorPane>
+        <Text text="OR"/>
+
+        <TextField fx:id="columnIndexField"
+                   promptText="Enter column index"
+                   minWidth="150.0"
+                   maxWidth="200.0"
+                   minHeight="40.0"/>
+
+        <Button fx:id="showColumnButton"
+                text="Show Column"
+                minWidth="100.0"
+                minHeight="40.0"/>
+    </HBox>
+
+</VBox>
