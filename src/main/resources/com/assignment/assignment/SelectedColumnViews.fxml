@@ -8,107 +8,112 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.Priority?>
 <?import javafx.geometry.Insets?>
 
 <HBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.assignment.assignment.controller.SelectedColumnViewController"
-      spacing="20">
+      spacing="20"
+      style="-fx-font-family: 'Comfortaa SemiBold';">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
     </padding>
 
-    <!-- Left section with TableView -->
     <TableView fx:id="columnTableView"
                minWidth="300.0"
                prefWidth="350.0"
                maxWidth="500.0"
-               HBox.hgrow="SOMETIMES"/>
+               HBox.hgrow="SOMETIMES"
+               style="-fx-font-family: 'Comfortaa SemiBold';"/>
 
-    <!-- Right section with sorting controls and chart -->
     <VBox spacing="15" HBox.hgrow="ALWAYS">
-        <!-- Sorting Controls Section -->
         <VBox spacing="10">
-            <!-- Merge Sort -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Button fx:id="mergeSortButton"
                         text="Merge Sort"
                         minWidth="120.0"
-                        minHeight="40.0"/>
+                        minHeight="40.0"
+                        style="-fx-font-family: 'Comfortaa SemiBold';"/>
                 <TextField fx:id="mergeSortTimeTextField"
                            promptText="Merge Sort Time"
                            minWidth="200.0"
                            minHeight="40.0"
-                           HBox.hgrow="ALWAYS"/>
+                           HBox.hgrow="ALWAYS"
+                           style="-fx-font-family: 'Comfortaa SemiBold';"/>
             </HBox>
 
-            <!-- Quick Sort -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Button fx:id="quickSortButton"
                         text="Quick Sort"
                         minWidth="120.0"
-                        minHeight="40.0"/>
+                        minHeight="40.0"
+                        style="-fx-font-family: 'Comfortaa SemiBold';"/>
                 <TextField fx:id="quickSortTimeTextField"
                            promptText="Quick Sort Time"
                            minWidth="200.0"
                            minHeight="40.0"
-                           HBox.hgrow="ALWAYS"/>
+                           HBox.hgrow="ALWAYS"
+                           style="-fx-font-family: 'Comfortaa SemiBold';"/>
             </HBox>
 
-            <!-- Insertion Sort -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Button fx:id="insertionSortButton"
                         text="Insertion Sort"
                         minWidth="120.0"
-                        minHeight="40.0"/>
+                        minHeight="40.0"
+                        style="-fx-font-family: 'Comfortaa SemiBold';"/>
                 <TextField fx:id="insertionSortTimeTextField"
                            promptText="Insertion Sort Time"
                            minWidth="200.0"
                            minHeight="40.0"
-                           HBox.hgrow="ALWAYS"/>
+                           HBox.hgrow="ALWAYS"
+                           style="-fx-font-family: 'Comfortaa SemiBold';"/>
             </HBox>
 
-            <!-- Shell Sort -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Button fx:id="shellSortButton"
                         text="Shell Sort"
                         minWidth="120.0"
-                        minHeight="40.0"/>
+                        minHeight="40.0"
+                        style="-fx-font-family: 'Comfortaa SemiBold';"/>
                 <TextField fx:id="shellSortTimeTextField"
                            promptText="Shell Sort Time"
                            minWidth="200.0"
                            minHeight="40.0"
-                           HBox.hgrow="ALWAYS"/>
+                           HBox.hgrow="ALWAYS"
+                           style="-fx-font-family: 'Comfortaa SemiBold';"/>
             </HBox>
 
-            <!-- Heap Sort -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Button fx:id="heapSortButton"
                         text="Heap Sort"
                         minWidth="120.0"
-                        minHeight="40.0"/>
+                        minHeight="40.0"
+                        style="-fx-font-family: 'Comfortaa SemiBold';"/>
                 <TextField fx:id="heapSortTimeTextField"
                            promptText="Heap Sort Time"
                            minWidth="200.0"
                            minHeight="40.0"
-                           HBox.hgrow="ALWAYS"/>
+                           HBox.hgrow="ALWAYS"
+                           style="-fx-font-family: 'Comfortaa SemiBold';"/>
             </HBox>
         </VBox>
 
-        <!-- Bar Chart Section -->
         <BarChart fx:id="sortingTimeBarChart"
                   VBox.vgrow="ALWAYS"
-                  animated="false">
+                  animated="false"
+                  style="-fx-font-family: 'Comfortaa SemiBold';">
             <xAxis>
                 <CategoryAxis label="Sorting Algorithm"
-                              animated="false"/>
+                              animated="false"
+                              style="-fx-font-family: 'Comfortaa SemiBold';"/>
             </xAxis>
             <yAxis>
                 <NumberAxis label="Time (ms)"
                             animated="false"
-                            autoRanging="true"/>
+                            autoRanging="true"
+                            style="-fx-font-family: 'Comfortaa SemiBold';"/>
             </yAxis>
         </BarChart>
     </VBox>
