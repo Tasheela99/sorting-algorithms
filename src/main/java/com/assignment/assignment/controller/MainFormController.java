@@ -1,5 +1,6 @@
 package com.assignment.assignment.controller;
 
+import com.assignment.assignment.util.AlertDialogUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,7 +36,6 @@ public class MainFormController {
 
     @FXML
     public void initialize() {
-        // Initialize the button click handler
         showColumnButton.setOnAction(this::showSelectedColumn);
     }
 
@@ -45,7 +45,16 @@ public class MainFormController {
         File file = fileChooser.showOpenDialog(null);
 
         if (file != null) {
-            loadCSVFile(file);
+            String fileName = file.getName();
+            if (fileName.endsWith(".csv")) {
+                AlertDialogUtil.showConfirmation("CSV File Selected Successfully");
+                loadCSVFile(file);
+            } else {
+                AlertDialogUtil.showError("Invalid file selected. Please select a valid CSV file.");
+            }
+        } else {
+            AlertDialogUtil.showWarning("File selection canceled by the user");
+
         }
     }
 
@@ -97,7 +106,6 @@ public class MainFormController {
         }
     }
 
-    // Identifies numeric columns and populates the ComboBox with their names and indices
     private void identifyNumericColumns() {
         for (int colIndex = 0; colIndex < tableView.getColumns().size(); colIndex++) {
             boolean isNumeric = true;
@@ -137,11 +145,11 @@ public class MainFormController {
 
                 openColumnWindow(columnHeader, columnData); // Pass the Double list
             } else {
-                showAlert("Invalid column index. Please enter a number between 0 and " +
+                AlertDialogUtil.showWarning("Invalid column index. Please enter a number between 0 and " +
                         (tableView.getColumns().size() - 1));
             }
         } catch (NumberFormatException e) {
-            showAlert("Please enter a valid number");
+            AlertDialogUtil.showWarning("Please enter a valid number");
         }
     }
 
@@ -171,10 +179,10 @@ public class MainFormController {
 
     private void openColumnWindow(String columnHeader, ObservableList<Double> columnData) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/assignment/assignment/SelectedColumnViews.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/assignment/assignment/AnalysisScreen.fxml"));
             Parent root = loader.load();
 
-            SelectedColumnViewController controller = loader.getController();
+            AnalysisScreenController controller = loader.getController();
             controller.setColumnData(columnHeader, columnData);
 
             Stage stage = new Stage();
@@ -183,15 +191,8 @@ public class MainFormController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert("Error loading column view window");
+            AlertDialogUtil.showError("Error loading column view window");
         }
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
 }

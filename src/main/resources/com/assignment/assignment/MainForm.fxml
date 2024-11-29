@@ -11,13 +11,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="583.0" spacing="10" style="-fx-font-family: 'Comfortaa SemiBold';" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.controller.MainFormController">
+<VBox prefHeight="675.0" prefWidth="610.0" spacing="20" style="-fx-font-family: 'Comfortaa SemiBold';" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.assignment.controller.MainFormController">
 
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
 
-    <Text text="Sorting Performance App" textAlignment="CENTER" wrappingWidth="513.8400573730469" VBox.vgrow="NEVER">
+    <!-- Header -->
+    <Text fill="#030e25c9" text="Sorting Performance App" textAlignment="CENTER" wrappingWidth="568.8400573730469" VBox.vgrow="NEVER">
         <font>
             <Font name="Comfortaa SemiBold" size="32.0" />
         </font>
@@ -26,30 +27,39 @@
         </VBox.margin>
     </Text>
 
-    <Button maxWidth="543.0" minHeight="50.0" onAction="#addCSVFileOnAction" prefHeight="50.0" prefWidth="543.0" text="Upload CSV File">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2020T00880 | 2020T00910 | 2020T00854 " textAlignment="CENTER" wrappingWidth="570.6990661621094" />
+
+    <!-- Upload Button -->
+    <Button maxWidth="572.0" minHeight="50.0" onAction="#addCSVFileOnAction" prefHeight="50.0" prefWidth="572.0" style="-fx-font-family: 'Comfortaa SemiBold'; -fx-background-color: #ff7f50; -fx-text-fill: #2f3542;" text="Upload CSV File" textFill="#2f3542">
         <font>
             <Font name="Comfortaa SemiBold" size="14.0" />
         </font>
     </Button>
 
-    <TableView fx:id="tableView" style="-fx-font-family: 'Comfortaa SemiBold';" VBox.vgrow="ALWAYS">
+    <!-- Table View -->
+    <TableView fx:id="tableView" prefHeight="273.0" prefWidth="571.0" style="-fx-font-family: 'Comfortaa SemiBold';" VBox.vgrow="ALWAYS">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
     </TableView>
 
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <ComboBox fx:id="numericColumnComboBox" maxWidth="300.0" minHeight="40.0" minWidth="200.0" onAction="#handleNumericColumnSelection" promptText="Select numeric column" style="-fx-font-family: 'Comfortaa SemiBold';" />
+    <!-- Footer -->
+    <HBox alignment="CENTER_LEFT" spacing="15">
+        <!-- ComboBox for numeric column selection -->
+        <ComboBox fx:id="numericColumnComboBox" maxWidth="300.0" minHeight="40.0" minWidth="200.0" onAction="#handleNumericColumnSelection" promptText="Select numeric column" style="-fx-font-family: 'Comfortaa SemiBold'; -fx-background-color: #ff7f50; -fx-text-fill: white;" />
 
+        <!-- 'OR' Text -->
         <Text text="OR">
             <font>
                 <Font name="Comfortaa SemiBold" size="14.0" />
             </font>
         </Text>
 
+        <!-- TextField for column index input -->
         <TextField fx:id="columnIndexField" maxWidth="200.0" minHeight="40.0" minWidth="150.0" promptText="Enter column index" style="-fx-font-family: 'Comfortaa SemiBold';" />
 
-        <Button fx:id="showColumnButton" minHeight="40.0" minWidth="100.0" text="Show Column">
+        <!-- Show Column Button -->
+        <Button fx:id="showColumnButton" minHeight="40.0" minWidth="100.0" prefHeight="40.0" prefWidth="151.0" style="-fx-font-family: 'Comfortaa SemiBold'; -fx-background-color: #ff7f50; -fx-text-fill: #2f3542;" text="Show Column">
             <font>
                 <Font name="Comfortaa SemiBold" size="14.0" />
             </font>
