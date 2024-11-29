@@ -1,6 +1,5 @@
 package com.assignment.assignment.util;
 
-import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 

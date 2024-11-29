@@ -32,7 +32,8 @@ public class MainFormController {
     private Label dateTimeLabel;
 
     private ObservableList<ObservableList<String>> data = FXCollections.observableArrayList();
-    private ObservableList<ObservableList<Double>> numericData = FXCollections.observableArrayList(); // For numeric columns
+
+    private ObservableList<ObservableList<Double>> numericData = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -58,6 +59,7 @@ public class MainFormController {
         }
     }
 
+
     private void loadCSVFile(File file) {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -75,8 +77,6 @@ public class MainFormController {
                 } else {
                     ObservableList<String> row = FXCollections.observableArrayList(Arrays.asList(fields));
                     data.add(row);
-
-                    // Convert numeric columns to Double and store them separately
                     ObservableList<Double> numericRow = FXCollections.observableArrayList();
                     for (int i = 0; i < fields.length; i++) {
                         try {
@@ -108,6 +108,7 @@ public class MainFormController {
 
     private void identifyNumericColumns() {
         for (int colIndex = 0; colIndex < tableView.getColumns().size(); colIndex++) {
+
             boolean isNumeric = true;
 
             for (ObservableList<String> row : data) {

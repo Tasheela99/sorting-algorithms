@@ -45,6 +45,7 @@ public class AnalysisScreenController {
     private BarChart<String, Number> sortingTimeBarChart;
 
     private final ChartUtil chartUtil = new ChartUtil();
+
     private final SortingAlgorithm mergeSort = new MergeSort();
     private final SortingAlgorithm quickSort = new QuickSort();
     private final SortingAlgorithm insertionSort = new InsertionSort();
@@ -140,6 +141,8 @@ public class AnalysisScreenController {
         );
     }
 
+
+
     private double performSort(SortingAlgorithm algorithm, Label timeLabel) {
         double[] dataArray = getDataArrayFromTable();
         long duration = measureSortingTime(() -> algorithm.sort(dataArray));
@@ -148,6 +151,7 @@ public class AnalysisScreenController {
         updateTable(dataArray);
         return timeInMs;
     }
+
 
     private double[] getDataArrayFromTable() {
         ObservableList<Double> data = columnTableView.getItems();
